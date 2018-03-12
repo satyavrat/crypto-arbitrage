@@ -7,13 +7,15 @@ import ArbitrageTable from './components/arbitrageTable';
 
 import AppBar from 'react-toolbox/lib/app_bar';
 import {Tabs, Tab} from 'react-toolbox/lib/tabs';
+import axios from 'axios';
 
+const BASE_URL = 'http://13.127.175.23:8080/';
 const data = [
   {
     c1: 'XRP',
     c2: 'ETH',
-    buyRate: '71 Rs',
-    sellRate: '61000 Rs',
+    buyPrice: '71 Rs',
+    sellPrice: '61000 Rs',
     exchangeRate: '0.043',
     gain: '2%',
     e1: 'Koinex',//buy sell
@@ -24,8 +26,8 @@ const data = [
   {
     c1: 'XRP',
     c2: 'ETH',
-    buyRate: '71 Rs',
-    sellRate: '61000 Rs',
+    buyPrice: '71 Rs',
+    sellPrice: '61000 Rs',
     exchangeRate: '0.043',
     gain: '2%',
     e1: 'Koinex',//buy sell
@@ -36,8 +38,8 @@ const data = [
   {
     c1: 'XRP',
     c2: 'ETH',
-    buyRate: '71 Rs',
-    sellRate: '61000 Rs',
+    buyPrice: '71 Rs',
+    sellPrice: '61000 Rs',
     exchangeRate: '0.043',
     gain: '2%',
     e1: 'Koinex',//buy sell
@@ -48,8 +50,8 @@ const data = [
   {
     c1: 'XRP',
     c2: 'ETH',
-    buyRate: '71 Rs',
-    sellRate: '61000 Rs',
+    buyPrice: '71 Rs',
+    sellPrice: '61000 Rs',
     exchangeRate: '0.043',
     gain: '2%',
     e1: 'Koinex',//buy sell
@@ -63,10 +65,52 @@ const data = [
 class App extends Component {
   state = {
     tabIndex: 0,
+    loading: true,
+    table:[[]],
+    list:[]
   };
 
+  componentDidMount(){
+    this.fetchData();
+  }
+
+  fetchData(tabNumber){
+    console.log("fetching data");
+
+    clearTimeout(this.timeout);
+
+    this.setState({
+      loading: true,      
+    })
+
+    let currentTab = this.state.tabIndex ? 'table':'list';
+
+    if(tabNumber!== undefined){
+      if(tabNumber===0){
+        currentTab = 'list'
+      } else {
+        currentTab = 'table'        
+      }
+    }    
+
+    if(currentTab == 'table'){
+      axios.get(`${BASE_URL}restapi-0.1/rest/u/arbitrage/crossBuySell/table?master=sarred1@@&apiKey=Sarred1@@&currencyCode=BTC&exchanges=BITBNS,BITFINIX,KOINEX,COINDELTA#`).then((res) => {
+        this.setState({table: res.data, loading: false});
+      });
+    } else {    
+      axios.get(`${BASE_URL}restapi-0.1/rest/u/arbitrage/classic/all?master=sarred1@@&apiKey=Sarred1@@&includeBNS=true`).then((res) => {
+        this.setState({list: res.data.data, loading: false});
+      });      
+    }      
+
+    this.timeout = setTimeout(() => {
+      this.fetchData();
+    }, 10000)    
+  }
+
   handleTabChange = (tabIndex) => {
-    this.setState({tabIndex});
+    this.fetchData(tabIndex);
+    this.setState({tabIndex});    
   };
 
   handleTableActive = () => {
@@ -78,6 +122,7 @@ class App extends Component {
   };
 
   render() {
+    let loading = this.state.loading;
     return (
         <div className={styles.app}>
           <AppBar className={styles.appHeader}>
@@ -86,9 +131,11 @@ class App extends Component {
           </AppBar>
           <section>
             <Tabs index={this.state.tabIndex} onChange={this.handleTabChange} inverse>
-              <Tab label='Arbitrage List'><ArbitrageList data={data}/></Tab>
+              <Tab label='Arbitrage List'>
+              <ArbitrageList data={this.state.list}/>
+              </Tab>
               <Tab label='Currency Arbitrage Table'>
-                <ArbitrageTable data={data}/>
+              <ArbitrageTable data={this.state.table}/>
               </Tab>
             </Tabs>
           </section>

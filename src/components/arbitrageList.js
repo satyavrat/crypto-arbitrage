@@ -4,18 +4,24 @@ import style from './listStyle.css';
 import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
 
 export default ({data}) => {
-  return <div className={style.list}>
-  {data.map((arbItem) => {
-    return <Card className={style.listItem}>
+
+
+  if(data === undefined){
+    return <div>No opportunities found!</div>
+  }
+
+  return <div className={style.list}>  
+  {data.map((arbItem, i) => {
+    return <Card key={arbItem.id} className={style.listItem}>
       <div className={style.date}>{arbItem.date}</div>
       <CardText>
       <div className={style.container}>
-        <div className={style.gain}>{arbItem.gain}</div>
+        <div className={style.gain}>{(arbItem.gain||0).toFixed(2)}</div>
         <div className={style.itemBuySell}>
           <div className={style.itemBold}>{arbItem.e1}</div>
-          Buy <span>{arbItem.c1}</span> @ <span className={style.itemBold}>{arbItem.buyRate}</span>
+          Buy <span>{arbItem.c1}</span> @ <span className={style.itemBold}>{arbItem.buyPrice}</span>
           <br/>
-          Sell <span>{arbItem.c1}</span> @ <span className={style.itemBold}>{arbItem.sellRate}</span>
+          Sell <span>{arbItem.c1}</span> @ <span className={style.itemBold}>{arbItem.sellPrice}</span>
         </div>
         <div className={style.itemExchange}>
           <div className={style.itemBold}>{arbItem.e2}</div>
