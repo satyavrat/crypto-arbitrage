@@ -9,7 +9,7 @@ import AppBar from 'react-toolbox/lib/app_bar';
 import {Tabs, Tab} from 'react-toolbox/lib/tabs';
 import axios from 'axios';
 
-const BASE_URL = 'http://13.127.175.23:8080/';
+const BASE_URL = 'https://13.127.175.23:8080/';
 const data = [
   {
     c1: 'XRP',
@@ -61,13 +61,24 @@ const data = [
   }
 ];
 
+const CURRENCIES = [
+  {
+    value:'BTC',
+    label:'Bitcoin'
+  },
+  {
+    value:'XRP',
+    label:'Ripple'
+  }
+]
 
 class App extends Component {
   state = {
     tabIndex: 0,
     loading: true,
     table:[[]],
-    list:[]
+    list:[],
+    tableCurrency:CURRENCIES[0].value
   };
 
   componentDidMount(){
@@ -93,8 +104,8 @@ class App extends Component {
       }
     }    
 
-    if(currentTab == 'table'){
-      axios.get(`${BASE_URL}restapi-0.1/rest/u/arbitrage/crossBuySell/table?master=sarred1@@&apiKey=Sarred1@@&currencyCode=BTC&exchanges=BITBNS,BITFINIX,KOINEX,COINDELTA#`).then((res) => {
+    if(currentTab === 'table'){
+      axios.get(`${BASE_URL}restapi-0.1/rest/u/arbitrage/crossBuySell/table?master=sarred1@@&apiKey=Sarred1@@&currencyCode=${this.state.tableCurrency}&exchanges=BITBNS,BITFINIX,KOINEX,COINDELTA#`).then((res) => {
         this.setState({table: res.data, loading: false});
       });
     } else {    
@@ -113,12 +124,8 @@ class App extends Component {
     this.setState({tabIndex});    
   };
 
-  handleTableActive = () => {
-    console.log('Special one activated');
-  };
-
-  handleListActive = () => {
-
+  onCurrencyChange = (currency) => {
+    this.setState({tableCurrency:currency, table:[[]]});
   };
 
   render() {
@@ -135,7 +142,7 @@ class App extends Component {
               <ArbitrageList data={this.state.list}/>
               </Tab>
               <Tab label='Currency Arbitrage Table'>
-              <ArbitrageTable data={this.state.table}/>
+              <ArbitrageTable currencies={CURRENCIES} selectedCurrency={this.state.tableCurrency} onCurrencyChange={this.onCurrencyChange} data={this.state.table}/>
               </Tab>
             </Tabs>
           </section>

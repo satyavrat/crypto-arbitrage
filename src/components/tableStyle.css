@@ -17,3 +17,8 @@
 .cell{
     transition: background-color 1s; 
 }
+
+
+.dropdown{
+    width: 200px;
+}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Table, TableHead, TableRow, TableCell } from 'react-toolbox/lib/table';
 import styles from './tableStyle.css';
 import cx from 'classnames';
+import Dropdown from 'react-toolbox/lib/dropdown';
 const exchanges = [
   {
     id: 'binance',
@@ -53,6 +54,10 @@ class TableTest extends Component {
   state = {
   };
 
+  handleChange = (data, e) => {    
+    this.props.onCurrencyChange(data);
+  }
+
   render() {
 
 
@@ -65,6 +70,15 @@ class TableTest extends Component {
     let max = findMax(this.props.data);
 
     return (
+      [<div>
+        <Dropdown
+        className={styles.dropdown}
+        auto
+        onChange={this.handleChange}
+        source={this.props.currencies}
+        value={this.props.selectedCurrency}
+      />
+      </div>,
       <Table selectable={false} style={{ marginTop: 10, width: 600 }}>
         <TableHead>
           <TableCell className={styles.head}> </TableCell>
@@ -84,7 +98,7 @@ class TableTest extends Component {
             }
           </TableRow>
         })}
-      </Table>
+      </Table>]
     );
   }
 }
