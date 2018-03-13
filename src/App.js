@@ -32,32 +32,6 @@ function beep2(duration, frequency, volume, type, callback) {
 };
   
 
-// var beep = function (duration, type, finishedCallback) {
-//   duration = +duration;
-//   // Only 0-4 are valid types.
-//   type = (type % 5) || 0;
-//   if (typeof finishedCallback != "function") {
-//       finishedCallback = function () {};
-//   }
-
-//   var osc = audioCtx.createOscillator();
-
-//   osc.type = type;
-//   //osc.type = "sine";
-
-//   osc.connect(audioCtx.destination);
-//   if (osc.noteOn) osc.noteOn(0);
-//   if (osc.start) osc.start();
-
-//   setTimeout(function () {
-//       if (osc.noteOff) osc.noteOff(0);
-//       if (osc.stop) osc.stop();
-//       finishedCallback();
-//   }, duration);
-// };
-
-
-
 const playSound = (gain) => {     
   let slab = 0;
   gain = Math.floor(gain);
