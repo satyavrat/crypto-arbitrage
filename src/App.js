@@ -9,7 +9,8 @@ import AppBar from 'react-toolbox/lib/app_bar';
 import {Tabs, Tab} from 'react-toolbox/lib/tabs';
 import axios from 'axios';
 
-const BASE_URL = 'http://13.127.175.23:8080/';
+const base_urls = ['13.127.175.23','13.126.140.157', '35.154.107.69'];
+  
 // const data = [
 //   {
 //     c1: 'XRP',
@@ -82,12 +83,13 @@ class App extends Component {
   };
 
   componentDidMount(){
+    this.serverIndex = 0;
     this.fetchData();
   }
 
   fetchData(tabNumber){
 
-    let apiKey = this.props.apiKey;
+    let apiKey = this.props.apiKey;    
     clearTimeout(this.timeout);
 
     this.setState({
@@ -104,22 +106,25 @@ class App extends Component {
       }
     }    
 
+    let url =`http://${base_urls[this.serverIndex]}:8080/`;
+
     if(currentTab === 'table'){
-      axios.get(`${BASE_URL}restapi-0.1/rest/u/arbitrage/crossBuySell/table?master=sarred1@@&apiKey=${apiKey}&currencyCode=${this.state.tableCurrency}&exchanges=BITBNS,BITFINIX,KOINEX,COINDELTA#`).then((res) => {
+      axios.get(`${url}restapi-0.1/rest/u/arbitrage/crossBuySell/table?master=sarred1@@&apiKey=${apiKey}&currencyCode=${this.state.tableCurrency}&exchanges=BITBNS,BITFINIX,KOINEX,COINDELTA#`).then((res) => {
         this.setState({table: res.data, loading: false});
       });
     } else {    
-      axios.get(`${BASE_URL}restapi-0.1/rest/u/arbitrage/classic/all?master=sarred1@@&apiKey=${apiKey}&includeBNS=true`).then((res) => {
+      axios.get(`${url}restapi-0.1/rest/u/arbitrage/classic/all?master=sarred1@@&apiKey=${apiKey}&includeBNS=true&disableProxy=true`).then((res) => {
         this.setState({list: res.data.data, loading: false});
       });      
     }      
 
     this.timeout = setTimeout(() => {
+      this.serverIndex = (this.serverIndex+1)%3;
       this.fetchData();
     }, 10000)    
   }
 
-  handleTabChange = (tabIndex) => {
+  handleTabChange = (tabIndex) => {    
     this.fetchData(tabIndex);
     this.setState({tabIndex});    
   };
