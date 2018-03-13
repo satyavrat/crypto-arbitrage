@@ -1,7 +1,7 @@
 import React from 'react';
 
 import style from './listStyle.css';
-import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
+import { Card, CardText} from 'react-toolbox/lib/card';
 
 export default ({data}) => {
 

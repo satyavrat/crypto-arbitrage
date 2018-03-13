@@ -129,8 +129,6 @@ class App extends Component {
   };
 
   render() {
-    let loading = this.state.loading;
-
     if(!this.props.apiKey){
       return<div>Incorrect API Key. Please contact admin</div>
     }
