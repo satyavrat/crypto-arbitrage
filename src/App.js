@@ -15,46 +15,46 @@ const base_urls = ['13.127.175.23','13.126.140.157', '35.154.107.69'];
 
 var audioCtx = new (window.AudioContext || window.webkitAudioContext || window.audioContext);
 
-// function beep2(duration, frequency, volume, type, callback) {
-//   var oscillator = audioCtx.createOscillator();
-//   var gainNode = audioCtx.createGain();
+function beep2(duration, frequency, volume, type, callback) {
+  var oscillator = audioCtx.createOscillator();
+  var gainNode = audioCtx.createGain();
 
-//   oscillator.connect(gainNode);
-//   gainNode.connect(audioCtx.destination);
+  oscillator.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
 
-//   if (volume){gainNode.gain.value = volume;};
-//   if (frequency){oscillator.frequency.value = frequency;}
-//   if (type){oscillator.type = type;}
-//   if (callback){oscillator.onended = callback;}
+  if (volume){gainNode.gain.value = volume;};
+  if (frequency){oscillator.frequency.value = frequency;}
+  if (type){oscillator.type = type;}
+  if (callback){oscillator.onended = callback;}
 
-//   oscillator.start();
-//   setTimeout(function(){oscillator.stop()}, (duration ? duration : 500));
-// };
+  oscillator.start();
+  setTimeout(function(){oscillator.stop()}, (duration ? duration : 500));
+};
   
 
-var beep = function (duration, type, finishedCallback) {
-  duration = +duration;
-  // Only 0-4 are valid types.
-  type = (type % 5) || 0;
-  if (typeof finishedCallback != "function") {
-      finishedCallback = function () {};
-  }
+// var beep = function (duration, type, finishedCallback) {
+//   duration = +duration;
+//   // Only 0-4 are valid types.
+//   type = (type % 5) || 0;
+//   if (typeof finishedCallback != "function") {
+//       finishedCallback = function () {};
+//   }
 
-  var osc = audioCtx.createOscillator();
+//   var osc = audioCtx.createOscillator();
 
-  osc.type = type;
-  //osc.type = "sine";
+//   osc.type = type;
+//   //osc.type = "sine";
 
-  osc.connect(audioCtx.destination);
-  if (osc.noteOn) osc.noteOn(0);
-  if (osc.start) osc.start();
+//   osc.connect(audioCtx.destination);
+//   if (osc.noteOn) osc.noteOn(0);
+//   if (osc.start) osc.start();
 
-  setTimeout(function () {
-      if (osc.noteOff) osc.noteOff(0);
-      if (osc.stop) osc.stop();
-      finishedCallback();
-  }, duration);
-};
+//   setTimeout(function () {
+//       if (osc.noteOff) osc.noteOff(0);
+//       if (osc.stop) osc.stop();
+//       finishedCallback();
+//   }, duration);
+// };
 
 
 
@@ -63,16 +63,16 @@ const playSound = (gain) => {
   gain = Math.floor(gain);
 
   if(gain>=2){
-    slab=1;
+    slab=1/4;
   }
   if(gain>=3){
-    slab=2;
+    slab=1/2;
   }
   if(gain>=5){
-    slab=3;
+    slab=1;
   }
   
-  slab && beep(500*0.7*slab, 2); 
+  slab && beep2(1000*slab,1000,1, 'sine'); 
 }
 
 
@@ -131,8 +131,7 @@ class App extends Component {
 
     if(currentTab === 'table'){
       axios.get(`${url}restapi-0.1/rest/u/arbitrage/crossBuySell/table?master=sarred1@@&apiKey=${apiKey}&currencyCode=${this.state.tableCurrency}&exchanges=BITBNS,BITFINIX,KOINEX,COINDELTA#`).then((res) => {
-        this.setState({table: res.data, loading: false});        
-        isPoll && playSound()
+        this.setState({table: res.data, loading: false});                
       });
     } else {    
       axios.get(`${url}restapi-0.1/rest/u/arbitrage/classic/all?master=sarred1@@&apiKey=${apiKey}&includeBNS=true&disableProxy=true`).then((res) => {
