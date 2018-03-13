@@ -12,11 +12,67 @@ import soundUrlAAC from './sounds/button_tiny.aac';
 import soundUrlMP3 from './sounds/button_tiny.mp3';
 
 const base_urls = ['13.127.175.23','13.126.140.157', '35.154.107.69'];
+
+var audioCtx = new (window.AudioContext || window.webkitAudioContext || window.audioContext);
+
+// function beep2(duration, frequency, volume, type, callback) {
+//   var oscillator = audioCtx.createOscillator();
+//   var gainNode = audioCtx.createGain();
+
+//   oscillator.connect(gainNode);
+//   gainNode.connect(audioCtx.destination);
+
+//   if (volume){gainNode.gain.value = volume;};
+//   if (frequency){oscillator.frequency.value = frequency;}
+//   if (type){oscillator.type = type;}
+//   if (callback){oscillator.onended = callback;}
+
+//   oscillator.start();
+//   setTimeout(function(){oscillator.stop()}, (duration ? duration : 500));
+// };
   
 
-const playSound = (filename) => {   
-  let sound = new Audio(soundUrlMP3);
-  sound.play();  
+var beep = function (duration, type, finishedCallback) {
+  duration = +duration;
+  // Only 0-4 are valid types.
+  type = (type % 5) || 0;
+  if (typeof finishedCallback != "function") {
+      finishedCallback = function () {};
+  }
+
+  var osc = audioCtx.createOscillator();
+
+  osc.type = type;
+  //osc.type = "sine";
+
+  osc.connect(audioCtx.destination);
+  if (osc.noteOn) osc.noteOn(0);
+  if (osc.start) osc.start();
+
+  setTimeout(function () {
+      if (osc.noteOff) osc.noteOff(0);
+      if (osc.stop) osc.stop();
+      finishedCallback();
+  }, duration);
+};
+
+
+
+const playSound = (gain) => {     
+  let slab = 0;
+  gain = Math.floor(gain);
+
+  if(gain>=2){
+    slab=1;
+  }
+  if(gain>=3){
+    slab=2;
+  }
+  if(gain>=5){
+    slab=3;
+  }
+  
+  slab && beep(500*0.7*slab, 2); 
 }
 
 
@@ -30,6 +86,13 @@ const CURRENCIES = [
     label:'Ripple'
   }
 ]
+
+const findMax = (data) => {
+
+  return data.reduce((acc, item) => {
+    return Math.max(item.gain, acc);
+  },0)
+}
 
 class App extends Component {
   state = {
@@ -74,7 +137,7 @@ class App extends Component {
     } else {    
       axios.get(`${url}restapi-0.1/rest/u/arbitrage/classic/all?master=sarred1@@&apiKey=${apiKey}&includeBNS=true&disableProxy=true`).then((res) => {
         this.setState({list: res.data.data, loading: false});        
-        isPoll && playSound()
+        isPoll && playSound(findMax(res.data.data))
       });      
     }      
 

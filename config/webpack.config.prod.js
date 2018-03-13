@@ -220,12 +220,12 @@ module.exports = {
             },
           },
           {
-            test: [/\.mp3$/,/\.aac$/,],
-            loader: 'file',
+            test: [/\.mp3$/,/\.aac$/],
+            loader: 'file-loader',
             query: {
                name: 'static/media/[name].[hash:8].[ext]'
             }
-         }
+          }
           // ** STOP ** Are you adding a new loader?
           // Make sure to add the new loader(s) before the "file" loader.
         ],

@@ -233,7 +233,7 @@ module.exports = {
           },
           {
             test: [/\.mp3$/,/\.aac$/,],
-            loader: 'file',
+            loader: 'file-loader',
             query: {
                name: 'static/media/[name].[hash:8].[ext]'
             }
