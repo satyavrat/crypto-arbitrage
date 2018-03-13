@@ -3322,6 +3322,10 @@ invert-kv@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/invert-kv/-/invert-kv-1.0.0.tgz#104a8e4aaca6d3d8cd157a8ef8bfab2d7a3ffdb6"
 
+ion-sound@^3.0.7:
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/ion-sound/-/ion-sound-3.0.7.tgz#8e9f56df1f755e1b863417934845fdf74fb7ba8c"
+
 ip@^1.1.0, ip@^1.1.5:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/ip/-/ip-1.1.5.tgz#bdded70114290828c0a039e72ef25f5aaec4354a"

@@ -21,7 +21,7 @@ export default ({data}) => {
           <div className={style.itemBold}>{arbItem.e1}</div>
           Buy <span>{arbItem.c1}</span> @ <span className={style.itemBold}>{arbItem.buyPrice}</span>
           <br/>
-          Sell <span>{arbItem.c1}</span> @ <span className={style.itemBold}>{arbItem.sellPrice}</span>
+          Sell <span>{arbItem.c2}</span> @ <span className={style.itemBold}>{arbItem.sellPrice}</span>
         </div>
         <div className={style.itemExchange}>
           <div className={style.itemBold}>{arbItem.e2}</div>
