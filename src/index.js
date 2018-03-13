@@ -4,5 +4,8 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+
+let apiKey = (document.location.hash||'').split('=')[1];
+
+ReactDOM.render(<App apiKey={apiKey} />, document.getElementById('root'));    
 registerServiceWorker();

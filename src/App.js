@@ -86,8 +86,8 @@ class App extends Component {
   }
 
   fetchData(tabNumber){
-    console.log("fetching data");
 
+    let apiKey = this.props.apiKey;
     clearTimeout(this.timeout);
 
     this.setState({
@@ -105,11 +105,11 @@ class App extends Component {
     }    
 
     if(currentTab === 'table'){
-      axios.get(`${BASE_URL}restapi-0.1/rest/u/arbitrage/crossBuySell/table?master=sarred1@@&apiKey=Sarred1@@&currencyCode=${this.state.tableCurrency}&exchanges=BITBNS,BITFINIX,KOINEX,COINDELTA#`).then((res) => {
+      axios.get(`${BASE_URL}restapi-0.1/rest/u/arbitrage/crossBuySell/table?master=sarred1@@&apiKey=${apiKey}&currencyCode=${this.state.tableCurrency}&exchanges=BITBNS,BITFINIX,KOINEX,COINDELTA#`).then((res) => {
         this.setState({table: res.data, loading: false});
       });
     } else {    
-      axios.get(`${BASE_URL}restapi-0.1/rest/u/arbitrage/classic/all?master=sarred1@@&apiKey=Sarred1@@&includeBNS=true`).then((res) => {
+      axios.get(`${BASE_URL}restapi-0.1/rest/u/arbitrage/classic/all?master=sarred1@@&apiKey=${apiKey}&includeBNS=true`).then((res) => {
         this.setState({list: res.data.data, loading: false});
       });      
     }      
@@ -130,6 +130,11 @@ class App extends Component {
 
   render() {
     let loading = this.state.loading;
+
+    if(!this.props.apiKey){
+      return<div>Incorrect API Key. Please contact admin</div>
+    }
+
     return (
         <div className={styles.app}>
           <AppBar className={styles.appHeader}>
