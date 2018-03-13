@@ -9,57 +9,57 @@ import AppBar from 'react-toolbox/lib/app_bar';
 import {Tabs, Tab} from 'react-toolbox/lib/tabs';
 import axios from 'axios';
 
-const BASE_URL = 'https://13.127.175.23:8080/';
-const data = [
-  {
-    c1: 'XRP',
-    c2: 'ETH',
-    buyPrice: '71 Rs',
-    sellPrice: '61000 Rs',
-    exchangeRate: '0.043',
-    gain: '2%',
-    e1: 'Koinex',//buy sell
-    e2: 'Binance',
-    date: '22/01/2018',
-    readableString: 'Buy XRP @ 71 Rs sell ETH @ 61000 Rs /n Exchange XRP @ 0.0123 ETH'
-  },
-  {
-    c1: 'XRP',
-    c2: 'ETH',
-    buyPrice: '71 Rs',
-    sellPrice: '61000 Rs',
-    exchangeRate: '0.043',
-    gain: '2%',
-    e1: 'Koinex',//buy sell
-    e2: 'Binance',
-    date: '22/01/2018',
-    readableString: 'Buy XRP @ 71 Rs sell ETH @ 61000 Rs /n Exchange XRP @ 0.0123 ETH'
-  },
-  {
-    c1: 'XRP',
-    c2: 'ETH',
-    buyPrice: '71 Rs',
-    sellPrice: '61000 Rs',
-    exchangeRate: '0.043',
-    gain: '2%',
-    e1: 'Koinex',//buy sell
-    e2: 'Binance',
-    date: '22/01/2018',
-    readableString: 'Buy XRP @ 71 Rs sell ETH @ 61000 Rs /n Exchange XRP @ 0.0123 ETH'
-  },
-  {
-    c1: 'XRP',
-    c2: 'ETH',
-    buyPrice: '71 Rs',
-    sellPrice: '61000 Rs',
-    exchangeRate: '0.043',
-    gain: '2%',
-    e1: 'Koinex',//buy sell
-    e2: 'Binance',
-    date: '22/01/2018',
-    readableString: 'Buy XRP @ 71 Rs sell ETH @ 61000 Rs /n Exchange XRP @ 0.0123 ETH'
-  }
-];
+const BASE_URL = 'http://13.127.175.23:8080/';
+// const data = [
+//   {
+//     c1: 'XRP',
+//     c2: 'ETH',
+//     buyPrice: '71 Rs',
+//     sellPrice: '61000 Rs',
+//     exchangeRate: '0.043',
+//     gain: '2%',
+//     e1: 'Koinex',//buy sell
+//     e2: 'Binance',
+//     date: '22/01/2018',
+//     readableString: 'Buy XRP @ 71 Rs sell ETH @ 61000 Rs /n Exchange XRP @ 0.0123 ETH'
+//   },
+//   {
+//     c1: 'XRP',
+//     c2: 'ETH',
+//     buyPrice: '71 Rs',
+//     sellPrice: '61000 Rs',
+//     exchangeRate: '0.043',
+//     gain: '2%',
+//     e1: 'Koinex',//buy sell
+//     e2: 'Binance',
+//     date: '22/01/2018',
+//     readableString: 'Buy XRP @ 71 Rs sell ETH @ 61000 Rs /n Exchange XRP @ 0.0123 ETH'
+//   },
+//   {
+//     c1: 'XRP',
+//     c2: 'ETH',
+//     buyPrice: '71 Rs',
+//     sellPrice: '61000 Rs',
+//     exchangeRate: '0.043',
+//     gain: '2%',
+//     e1: 'Koinex',//buy sell
+//     e2: 'Binance',
+//     date: '22/01/2018',
+//     readableString: 'Buy XRP @ 71 Rs sell ETH @ 61000 Rs /n Exchange XRP @ 0.0123 ETH'
+//   },
+//   {
+//     c1: 'XRP',
+//     c2: 'ETH',
+//     buyPrice: '71 Rs',
+//     sellPrice: '61000 Rs',
+//     exchangeRate: '0.043',
+//     gain: '2%',
+//     e1: 'Koinex',//buy sell
+//     e2: 'Binance',
+//     date: '22/01/2018',
+//     readableString: 'Buy XRP @ 71 Rs sell ETH @ 61000 Rs /n Exchange XRP @ 0.0123 ETH'
+//   }
+// ];
 
 const CURRENCIES = [
   {

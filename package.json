@@ -119,7 +119,7 @@
     ],
     "output": "src/assets/react-toolbox"
   },
-  "homepage": "http://satyavrat.github.io/crypto-arbitrage",
+  "homepage": "http://www.bitgini.in",
   "devDependencies": {
     "gh-pages": "^1.1.0"
   }
