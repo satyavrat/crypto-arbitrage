@@ -11,7 +11,8 @@ import axios from 'axios';
 import soundUrlAAC from './sounds/button_tiny.aac';
 import soundUrlMP3 from './sounds/button_tiny.mp3';
 
-const base_urls = ['13.127.175.23','13.126.140.157', '35.154.107.69'];
+
+const base_urls = ['13.126.140.157', '35.154.107.69', '13.127.175.23'];
 
 var audioCtx = new (window.AudioContext || window.webkitAudioContext || window.audioContext);
 
@@ -140,9 +141,9 @@ class App extends Component {
             <img src={logo} className={styles.appLogo} alt="logo"/>
             <h1 className={styles.appTitle}>Crypto Arbitrage</h1>
           </AppBar>
-          <section>
-            <Tabs index={this.state.tabIndex} onChange={this.handleTabChange} inverse>
-              <Tab label='Arbitrage List'>
+          <section style={{height: window.innerHeight-64}}>
+            <Tabs theme={styles} className={styles.tabWrap} index={this.state.tabIndex} onChange={this.handleTabChange} inverse>
+              <Tab className={styles.tabItem} label='Arbitrage List'>
               <ArbitrageList data={this.state.list}/>
               </Tab>
               <Tab label='Currency Arbitrage Table'>

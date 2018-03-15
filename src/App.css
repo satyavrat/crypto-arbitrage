@@ -1,5 +1,6 @@
-.app {
-  text-align: center;
+.app {  
+  display: flex;
+  flex-direction: column;
 }
 
 .appLogo {
@@ -21,3 +22,6 @@
   font-size: large;
 }
 
+.tab, .tabItemArea{
+  padding: 0!important;
+}
