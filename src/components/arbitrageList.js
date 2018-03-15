@@ -31,7 +31,7 @@ export default class ArbitrageList extends React.Component {
     }
 
     let selectedArbItem = _.find(data, { id: selectedArbId });
-
+    
     return <div className={style.listWrapper} style={{height: window.innerHeight - 64 - 48}}>
       <div className={style.list}>
         {data.map((arbItem, i) => {

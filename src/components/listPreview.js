@@ -6,7 +6,7 @@ import React from 'react';
 export default ({ item }) => {
 
     if (!item) {
-        return <div className={style.listPreview}>Select a new opportunity! </div>
+        return <div className={style.listPreview}>Missed opportunity, Select a new one! </div>
     }
 
     return <div className={style.listPreview}>
