@@ -17,12 +17,12 @@
     border-bottom: 1px solid #ddd;
     cursor: pointer;
     padding: 15px 10px;
-    background: #fff;
+    background: #fff;    
+}
 
-    &.selected{
-        background: #eee;
-        border-right: 2px solid;
-    }
+.listItem.selected{
+    background: #eee;
+    border-right: 2px solid;
 }
 
 .container{
