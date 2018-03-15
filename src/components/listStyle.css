@@ -8,8 +8,13 @@
     text-align: left;
     border-right: 1px solid #ddd;    
     height: 100%;
-    overflow: scroll;
-    width: 35%
+    overflow: scroll;    
+}
+
+@media screen and (min-width: 600px) {
+    .list{
+        width: 35%
+    }
 }
 
 .listItem {

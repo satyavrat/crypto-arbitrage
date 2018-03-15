@@ -7,6 +7,8 @@ import cx from 'classnames';
 import _ from 'lodash';
 import ListPreview from './listPreview';
 
+import Media from "react-media";
+
 export default class ArbitrageList extends React.Component {
   state = {
 
@@ -56,7 +58,15 @@ export default class ArbitrageList extends React.Component {
           </div>
         })}
       </div>
-      <ListPreview item={selectedArbItem}/>
+      <Media query="(max-width: 599px)">
+          {matches =>
+            matches ? (
+              null
+            ) : (
+              <ListPreview item={selectedArbItem}/>
+            )
+          }
+        </Media>
     </div>
   }
 
